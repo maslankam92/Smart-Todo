@@ -1,0 +1,83 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  color: #fdfdfd;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  height: 100%;
+}
+
+body {
+  background-image: linear-gradient(to bottom right, #c72d00 0%, #c0a11e 100%);
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container {
+  margin: 0 auto;
+  width: 95%;
+}
+
+h1 {
+  padding: 1em 0;
+  text-align: center;
+}
+
+.tasks-list {
+  margin-top: 1em;
+}
+
+.tasks-list li {
+  background-color: rgba(255, 255, 255, .2);
+  border-radius: 5px;
+  padding: .5em 1em;
+  line-height: 1.2;
+  word-break: break-all;
+  margin-top: .5em;
+}
+
+.add-task-btn {
+  background-image: linear-gradient(to bottom right, #c72d00 0%, #c0a11e 80%);
+  border-radius: 50%;
+  font-size: 1.2em;
+  line-height: 50px;
+  min-height: 50px;
+  width: 50px;
+  position: relative;
+  margin: 0 auto;
+  transition: .1s ease-in;
+}
+
+.add-task-btn:after {
+  content: '+';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+
+.add-task-btn[contenteditable] {
+  background-image: linear-gradient(to bottom right, rgba(236, 44, 0, 0.22) 0%, rgba(235, 235, 235, 0.4) 100%);
+  border-radius: 4px;
+  transition: .1s ease-in;
+  width: 100%;
+  text-align: left;
+  padding: 0 1em;
+}
+
+.add-task-btn[contenteditable]:focus {
+  outline: 0 solid transparent;
+}
+
+.add-task-btn[contenteditable]:after {
+  transition: .2s;
+  opacity: 0;
+}
