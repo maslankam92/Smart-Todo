@@ -1,7 +1,7 @@
 const addTaskBtn = document.querySelector('.add-task-btn');
 const tasksList = document.querySelector('.tasks-list');
 
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function expandTaskInput() {
   addTaskBtn.setAttribute('contenteditable', true);
@@ -17,8 +17,9 @@ function listenKeys(e) {
 function renderTaskList() {
   tasksList.innerHTML = tasks.map(task => {
     return `
-      <li>
-        ${task.value}
+      <li data-id="${task.id}">
+        <input type="checkbox" class="cbx" ${task.done ? 'checked' : ''}/>
+        <label data-id="${task.id}" for="cbx">${task.value}</label>
       </li>  
     `
   }).join('')
@@ -26,6 +27,7 @@ function renderTaskList() {
 
 function addTask(task) {
   tasks.push(task);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
   renderTaskList(tasks, tasksList);
 }
 
@@ -47,6 +49,22 @@ function finishEditing() {
   addTask(newTask);
 }
 
+function toggleDone(e) {
+  if (!e.target.matches('input')) {
+    const newTasks = tasks.map(task => {
+      if (task.id === +e.target.dataset.id) {
+        task.done = !task.done;
+      }
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTaskList(newTasks, tasksList);
+  }
+}
+
+renderTaskList(tasks, tasksList);
+
 addTaskBtn.addEventListener('click', expandTaskInput);
 addTaskBtn.addEventListener('blur', finishEditing);
 document.addEventListener('keydown', listenKeys);
+tasksList.addEventListener('click', toggleDone);

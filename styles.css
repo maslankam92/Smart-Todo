@@ -81,3 +81,26 @@ h1 {
   transition: .2s;
   opacity: 0;
 }
+
+.tasks-list input {
+  display: none;
+}
+
+.tasks-list input + label:before {
+  content: "\f0c8";
+  font-family: 'Font Awesome\ 5 Free';
+  margin-right: 10px;
+  font-weight: 100;
+}
+
+.tasks-list input:checked + label:before {
+  content: "\f00c";
+  font-family: 'Font Awesome\ 5 Free';
+  margin-right: 10px;
+  font-weight: 900;
+}
+
+.tasks-list input:checked + label {
+  text-decoration: line-through;
+  opacity: .5;
+}
