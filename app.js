@@ -14,12 +14,13 @@ function listenKeys(e) {
   if (e.code === 'Enter') finishEditing();
 }
 
-function renderTaskList() {
-  tasksList.innerHTML = tasks.map(task => {
+function renderTaskList(newTasks, tasksList) {
+  tasksList.innerHTML = newTasks.map(task => {
     return `
       <li data-id="${task.id}">
         <input type="checkbox" class="cbx" ${task.done ? 'checked' : ''}/>
         <label data-id="${task.id}" for="cbx">${task.value}</label>
+        <i class="fas fa-trash"></i>
       </li>  
     `
   }).join('')
@@ -50,16 +51,26 @@ function finishEditing() {
 }
 
 function toggleDone(e) {
-  if (!e.target.matches('input')) {
-    const newTasks = tasks.map(task => {
+  let newTasks;
+  if (e.target.matches('.fa-trash')) {
+    e.stopPropagation();
+    newTasks = [...tasks].filter(task => {
+      return task.id !== +e.target.parentNode.dataset.id;
+    });
+    tasks = newTasks;
+  }
+
+  if (e.target.matches('label') || e.target.matches('li')) {
+    console.log('asdasdsd');
+    newTasks = [...tasks].map(task => {
       if (task.id === +e.target.dataset.id) {
         task.done = !task.done;
       }
+      return task;
     });
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTaskList(newTasks, tasksList);
   }
+  localStorage.setItem('tasks', JSON.stringify(newTasks));
+  renderTaskList(newTasks, tasksList);
 }
 
 renderTaskList(tasks, tasksList);
