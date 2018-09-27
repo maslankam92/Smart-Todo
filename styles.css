@@ -52,7 +52,7 @@ h1 {
   width: 50px;
   position: relative;
   margin: 0 auto;
-  transition: .1s ease-in;
+  transition: .05s ease-in;
 }
 
 .add-task-btn:after {
@@ -67,7 +67,7 @@ h1 {
 .add-task-btn[contenteditable] {
   background-image: linear-gradient(to bottom right, rgba(236, 44, 0, 0.22) 0%, rgba(235, 235, 235, 0.4) 100%);
   border-radius: 4px;
-  transition: .1s ease-in;
+  transition: .05s ease-in;
   width: 100%;
   text-align: left;
   padding: 0 1em;
