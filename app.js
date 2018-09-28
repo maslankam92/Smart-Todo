@@ -1,11 +1,28 @@
 const addTaskBtn = document.querySelector('.add-task-btn');
 const tasksList = document.querySelector('.tasks-list');
 
+/* Speech Recognition */
+const recognition = new webkitSpeechRecognition();
+recognition.lang = 'pl-PL';
+recognition.interimResults = true;
+
+function writeTask(e) {
+  addTaskBtn.textContent = e.results[0][0].transcript;
+}
+
+function recognitionError(e) {
+  console.error('Something went wrong: ' + e.error);
+}
+
+/* to do app functionalities */
+
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function expandTaskInput() {
+  if (addTaskBtn.hasAttribute('contenteditable')) return;
   addTaskBtn.setAttribute('contenteditable', true);
   addTaskBtn.focus();
+  recognition.start();
 }
 
 function listenKeys(e) {
@@ -79,3 +96,6 @@ addTaskBtn.addEventListener('click', expandTaskInput);
 addTaskBtn.addEventListener('blur', finishEditing);
 document.addEventListener('keydown', listenKeys);
 tasksList.addEventListener('click', toggleDone);
+recognition.addEventListener('result', writeTask);
+recognition.addEventListener('end', finishEditing);
+recognition.addEventListener('error', recognitionError);

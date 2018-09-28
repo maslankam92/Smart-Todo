@@ -85,6 +85,8 @@ h1 {
 .tasks-list .fa-trash {
   display: inline-block;
   float: right;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .tasks-list input {
@@ -108,4 +110,10 @@ h1 {
 .tasks-list input:checked + label {
   text-decoration: line-through;
   opacity: .5;
+}
+
+@media (min-width: 800px) {
+  .container {
+    width: 40%;
+  }
 }
